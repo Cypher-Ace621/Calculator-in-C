@@ -1,7 +1,7 @@
 #include<stdio.h>
 int arithmetic(int x, int y){
     char operation;
-    printf("Enter an operation (+, -, *, /): ");
+    printf("Enter an operation (+, -, *, /, %%): ");
     scanf(" %c", &operation);
     switch(operation){
         case '+':
@@ -21,6 +21,13 @@ int arithmetic(int x, int y){
             else{
                 printf("Cannot divide by zero\n");
             }
+        case '%':
+            if(y != 0){
+                printf("The modulus is: %d\n", x % y);
+            }
+            else{                
+                printf("Cannot divide by zero\n");
+            }  
             break;
         default:
             printf("Invalid operation\n");
