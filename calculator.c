@@ -35,7 +35,7 @@ int arithmetic(int x, int y){
 }
 int main(){
     int num1, num2;
-    char operation;
+    
     printf("Enter a number: ");
     scanf("%d", &num1);
     printf("Enter another number: ");
