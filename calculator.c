@@ -116,14 +116,14 @@ int rootFunctions(float x){
 // trigonometric functions are calculated using the taylor series expansion for sine, cosine and tangent functions. The series is repeated until the term value is less than or equal to 0.00001 to ensure accuracy of the result.
 int trigonometricFunctions(float x){
 		#define PI 3.14159
-		float result;
-		char trigFunctions;
+		float result, term;
+		char trigFunctions, responds;
+		int n;
 		printf("**********************Calculation of trigonometric functions**********************\n\nS- Sine\n\nC- Cosine\n\nT- Tangent\n\n");
 		printf("Enter which trigonometric function to calculate: ");
 		scanf(" %c", &trigFunctions);
 	 	switch(trigFunctions){
 		  	case 'S':
-				char responds;
 				printf("calculate the iverse of sine(y/n): \n");
 				scanf(" %c", &responds);
 				if((responds == 'N') || (responds == 'n')){
@@ -131,8 +131,8 @@ int trigonometricFunctions(float x){
 					scanf("%f", &x);
 					float radian = x * (PI/180.0); // converting user into radian
 					result = 0.0;
-					float term = radian; // first term of the Jseries
-					int n = 1; // term index
+					term = radian; // first term of the Jseries
+					n = 1; // term index
 					while((term > 0.00001) || (term < -0.00001)){ // repeat until the term value is <= 0.00001
 						result += term; // add to result
 						term *= -1.0 * radian * radian / ((n + 1) * (n + 2)); // calculate the next term in the series
@@ -145,10 +145,10 @@ int trigonometricFunctions(float x){
 					if(x > -1.0 && x < 1.0){
 						// Calculate inverse sine using Taylor series
 						result = x; // first term of the series approximation
-						float term = x; // first term of the series
-						int n = 1; // term index
+						term = x; // first term of the series
+						n = 1; // term index
 						while((term > 0.00001) || (term < -0.00001)){ // repeat until the term value is <= 0.00001
-							term *= ((x * x) * ((float)(2 * n - 1)) / (2 * n)); // calculate the next term in the series
+							term *= ((x * x) * ((2 * n - 1) * (2 * n - 1)) / ((2 * n) * (2 * n + 1))); // calculate the next term in the series
 							result += term; // add to result
 							n++; // increment the term index by 1 for inverse sine series
 						}
@@ -162,18 +162,43 @@ int trigonometricFunctions(float x){
 				
 			break;
 		  	case 'C':
-				printf("Enter the angle in degrees to find the cosine of: ");
+				printf("Calcultate the inverse of cosine(y/n): \n");
+				scanf(" %c", &responds);
+				if(responds == 'N' || responds == 'n'){
+					printf("Enter the angle in degrees to find the cosine of: ");
 				scanf("%f", &x);
 				float radians = x * (PI/180.0);// converting user into radian
 				result = 1.0; // first term of the series
-				float term = 1.0; // first term of the series
-				int n = 2; // cosine term index 
+				term = 1.0; // first term of the series
+				n = 2; // cosine term index 
 				while(term > 0.00001 || term < -0.00001){ // repeat until the term value is <= 0.00001
 					 term *= -1.0 * radians * radians / (n * (n-1)); // calculate the next term in the series
 					 result += term; // add
 					 n += 2; // increment the term index by 2 for cosine series 
 				}
 				printf("The cosine of %.2f degrees is: %.4f\n", x, result);
+				} else if((responds == 'Y') || (responds == 'y')){
+					printf("Enter the value to find the inverse cosine of: ");
+					scanf("%f", &x);
+					if(x > -1.0 && x < 1.0){
+						// Calculate inverse sine using Taylor series
+						result = x; // first term of the series approximation
+						term = x; // first term of the series
+						n = 1; // term index
+						while((term > 0.00001) || (term < -0.00001)){ // repeat until the term value is <= 0.00001
+							term *= ((x * x) * ((2 * n - 1) * (2 * n - 1)) / ((2 * n) * (2 * n + 1))); // calculate the next term in the series
+							result += term; // add to result
+							n++; // increment the term index by 1 for inverse sine series
+						}
+						result = (PI /2.0) - result; // convert the inverse of sine into cos since both works similarly
+						result *= (180.0 / PI); // convert result from radians to degrees
+						
+						printf("The inverse of cosine of %.4f is: %.4f degrees\n", x, result);
+					} else {
+						printf("Invalid input. Please enter a value between -1 and 1.\n");
+					}
+				}
+
 			break;
 		  	case 'T':
 				printf("Enter the angle in degrees to find the tangent of: ");
