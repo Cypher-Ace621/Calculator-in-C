@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
+float result;
 int arithmetic(int x, int y){
 	 char operation;
 	 printf("Enter an operation (+, -, *, /, %%): ");
@@ -116,7 +117,7 @@ int rootFunctions(float x){
 // trigonometric functions are calculated using the taylor series expansion for sine, cosine and tangent functions. The series is repeated until the term value is less than or equal to 0.00001 to ensure accuracy of the result.
 int trigonometricFunctions(float x){
 		#define PI 3.14159
-		float result, term;
+		float term;
 		char trigFunctions, responds;
 		int n;
 		printf("**********************Calculation of trigonometric functions**********************\n\nS- Sine\n\nC- Cosine\n\nT- Tangent\n\n");
@@ -262,12 +263,43 @@ int trigonometricFunctions(float x){
 }
 // end of trig functions
 
+// combination
+int combination(float x, float y){
+	printf("****************Combinations calculations********************\n\n");
+
+	printf("Enter combination number: ");
+	scanf("%f", &x);
+	printf("Enter the set combine number: ");
+	scanf("%f", &y);
+	// checks if the combination number matches the rules for combination
+	if(x >= y){
+		float numerator = 1.0, denominator = 1.0;
+		int i=1, decrement = x-y;
+		while(x > decrement){
+			numerator *= x;
+			denominator *= i;
+			x--;
+			i++;
+		}
+		result = numerator / denominator;
+		printf("combination = %.4f\n\n", result);
+	} else{
+		printf("Mathematical error!");
+	}
+
+}
+// end of combination
+
+// permutation
+	
+// end of permutation
+
 
 int main(){
 	 int num1, num2;
 	 char decision;
 
-	 printf("Welcome to the calculator!\nchoose the option you want to perform:\n\nA-for arithmetic\n\nR-for root functions\n\nT- Trigonometric\n\nE-for exit\n\n");
+	 printf("Welcome to the calculator!\nchoose the option you want to perform:\n\nA-for arithmetic\n\nR-for root functions\n\nT- Trigonometric\n\nC-Combination\n\nE-for exit\n\n");
 	 printf("Enter what to calculate: ");
 	 scanf(" %c", &decision);
 
@@ -288,6 +320,9 @@ int main(){
 		  case 'T':
 				trigonometricFunctions((float) num1);
 				break;
+		  case 'C':
+		       combination(num1, num2);
+			   break;
 		  default:
 				printf("Invalid decision\n");
 	 } 
