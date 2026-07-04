@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
-float result;
+double result;
 int arithmetic(int x, int y){
 	 char operation;
 	 printf("Enter an operation (+, -, *, /, %%): ");
@@ -278,28 +278,45 @@ int combination(float x, float y){
 		while(x > decrement){
 			numerator *= x;
 			denominator *= i;
-			x--;
-			i++;
+			x--;// makes the loop to finite value
+			i++;// inrement to make the denominator reduces after each execution
 		}
 		result = numerator / denominator;
 		printf("combination = %.4f\n\n", result);
 	} else{
-		printf("Mathematical error!");
+		printf("Mathematical error!");// returns this condition do not match
 	}
 
 }
 // end of combination
 
 // permutation
-	
+	int permutation(float x, float y){
+		printf("*********Welcome to permutation\n");
+		printf("Enter two number to calculate permutation: ");
+		scanf("%f %f", &x, &y);
+		if(x >= y){
+			float initial = x;
+			result = 1.0;
+			while(y != 0){
+				result *= x;
+				x--;
+				y--;
+			}
+			printf("Permutaion = %.4lf\n\n", result);
+		} else{
+			printf("Mathematical error!\n\n");
+		}
+	}
 // end of permutation
+
 
 
 int main(){
 	 int num1, num2;
 	 char decision;
 
-	 printf("Welcome to the calculator!\nchoose the option you want to perform:\n\nA-for arithmetic\n\nR-for root functions\n\nT- Trigonometric\n\nC-Combination\n\nE-for exit\n\n");
+	 printf("Welcome to the calculator!\nchoose the option you want to perform:\n\nA-for arithmetic\n\nR-for root functions\n\nT- Trigonometric\n\nC-Combination\n\nP-Permutation\n\nE-for exit\n\n");
 	 printf("Enter what to calculate: ");
 	 scanf(" %c", &decision);
 
@@ -323,6 +340,9 @@ int main(){
 		  case 'C':
 		       combination(num1, num2);
 			   break;
+		  case 'P':
+		  		permutation(num1, num2);
+				break;
 		  default:
 				printf("Invalid decision\n");
 	 } 
