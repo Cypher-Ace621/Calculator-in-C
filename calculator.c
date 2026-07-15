@@ -43,6 +43,7 @@ int rootFunctions(float x){
 	 printf("Enter which root to calculate: ");
 	 scanf(" %c", &roots);
 	 switch(roots){
+		  case 's':
 		  case 'S':
 				printf("Enter the number to find the square root of: ");
 				scanf("%f", &x);
@@ -60,6 +61,7 @@ int rootFunctions(float x){
 				}
 				break;
 				// end of square root condition
+		  case 'c':
 		  case 'C':
 					 printf("Enter the number to find the cube root of: ");
 					 scanf("%f", &x);
@@ -76,6 +78,7 @@ int rootFunctions(float x){
 					 }
 					 // end of cube root condition
 				break;
+		  case 'n':
 		  case 'N':
 					 int n ;
 					 printf("Enter the nth root: ");
@@ -124,6 +127,7 @@ int trigonometricFunctions(float x){
 		printf("Enter which trigonometric function to calculate: ");
 		scanf(" %c", &trigFunctions);
 	 	switch(trigFunctions){
+			case 's':
 		  	case 'S':
 				printf("calculate the iverse of sine(y/n): \n");
 				scanf(" %c", &responds);
@@ -162,6 +166,7 @@ int trigonometricFunctions(float x){
 				}
 				
 			break;
+			case 'c':
 		  	case 'C':
 				printf("Calcultate the inverse of cosine(y/n): \n");
 				scanf(" %c", &responds);
@@ -201,6 +206,7 @@ int trigonometricFunctions(float x){
 				}
 
 			break;
+			case 't':
 		  	case 'T':
 			char response;
 				printf("Do you want to calculate the inverse of tan(y/n): ");
@@ -310,17 +316,112 @@ int combination(float x, float y){
 	}
 // end of permutation
 
+// factorial
+	int factorial(float x){
+		printf("***********Welcome to factorial function***********\n\n");
+		printf("Enter a factorial number: ");
+		scanf("%f", &x);
+		result = 1.0;
+		while(x != 0){ // condtion stops when x reaches 0
+			result *= x; // performs the factorial calculation
+			x--;
+		}
+		printf("Factorial = %.2f\n\n", result);
+	}
+// end of factorial
+
+// inverse function
+int inverseFunction(float x){
+	printf("*************welcome to inverse function*************\n\n");
+	printf("Enter the inverse number: ");
+	scanf("%f", &x);
+	result = 1 / x;
+
+	printf("Inverse = %.4f\n\n", result);
+}
+// end of inverse function
+
+// logarithm function()
+float logarithm(float x){
+	float log;
+	printf("*************welcome to loagarithm function*************\n\n");
+	printf("Enter a number to calculate its Napenian log: ");
+	scanf("%f", &x);
+	if(x <= 0){
+		printf("Math error!!!");
+	} else{
+		result = x / 2;// 2 is the root value we are trying to look for!!!
+		int counter = 0;
+		
+		while(x > 1.5){
+			x = result / 2.0; // Reusing x as the square root holder
+			// conditions to calculate the square root of a number
+			while(((x * x - result) > 0.00001) || ((result - x * x) > 0.00001)){ // repeat until result value is <= 0.00001
+
+				x = (x + result / x) / 2.0;				
+			}
+			counter +=1;// give the number of times the square root was calculated
+			// At the end of the "x > 1.5" block (around line 356)
+			result = x;
+			x = result; // Updates x so the while(x > 1.5) check can eventually become false!
+			
+		}
+		while(x < 0.5){
+			x = result / 2.0; // Reusing x as the square root holder
+			// conditions to calculate the square root of a number
+			while(((x * x - result) > 0.00001) || ((result - x * x) > 0.00001)){ // repeat until result value is <= 0.00001
+
+				x = (x + result / x) / 2.0;			
+			}
+			counter ++;// give the number of times the square root was calculated	
+			// At the end of the "x > 1.5" block (around line 356)
+			result = x;
+			x = result; // Updates x so the while(x > 1.5) check can eventually become false!
+			
+		}
+		float z = result - 1.0;
+		// Taylor series: z - (z^2)/2 + (z^3)/3
+		result = z - (z * z) / 2.0 + (z * z * z) / 3.0 - (z * z * z * z) / 4.0 + (z * z * z * z * z) / 5.0;
+
+		while(counter > 0){
+    		result = result * 2.0;
+    		counter-=1;
+		}
+
+			// logarithm
+			// 3. Taylor Series calculation (z is calculated from the final scaled 'result')
+		// Store the initial approximation in our new 'log' variable
+		log = z - (z * z) / 2.0 + (z * z * z) / 3.0 - (z * z * z * z) / 4.0 + (z * z * z * z * z) / 5.0;
+
+		// 4. Derive the final log by scaling 'log' instead of 'result'
+		while (counter > 0) {
+			log = log * 2.0;
+			counter -= 1;
+		}
+		while (counter < 0) {
+			log = log / 2.0;
+			counter += 1;
+		}
+		// end of logarithm
+	}
+	
+	printf("Napenian log = %.4f\n", result);
+	printf("log result = %.4f\n", log);
+
+}
+// end of logarithm function
 
 
 int main(){
 	 int num1, num2;
 	 char decision;
 
-	 printf("Welcome to the calculator!\nchoose the option you want to perform:\n\nA-for arithmetic\n\nR-for root functions\n\nT- Trigonometric\n\nC-Combination\n\nP-Permutation\n\nE-for exit\n\n");
+	 printf("Welcome to the calculator!\nchoose the option you want to perform:\n\nA-for arithmetic\n\nR-for root functions\n\nT- Trigonometric\n\nC-Combination\n\nP-Permutation\n\nF-Factorial\n\nI-Inverse\n\nL-Logarithm\n\nE-for exit\n\n");
 	 printf("Enter what to calculate: ");
 	 scanf(" %c", &decision);
 
 	 switch(decision){
+		  case 'a':
 		  case 'A':
 				printf("Enter a number: ");
 				scanf("%d", &num1);
@@ -328,20 +429,37 @@ int main(){
 				scanf("%d", &num2);
 				arithmetic(num1, num2);
 				break;
+		  case 'r':
 		  case 'R':
 				rootFunctions((float)num1);
 				break;
-		  case 'E':
-				printf("Exiting the calculator. Goodbye!\n");
-				break;
+		  case 't':
 		  case 'T':
 				trigonometricFunctions((float) num1);
 				break;
+		 case 'c':
 		  case 'C':
 		       combination(num1, num2);
 			   break;
+		  case 'p':
 		  case 'P':
 		  		permutation(num1, num2);
+				break;
+		  case 'f':
+		  case 'F':
+		  		factorial(num1);
+				break;
+		  case 'i':
+		  case 'I':
+		  		inverseFunction(num1);
+				break;
+		  case 'l':
+		  case 'L':
+		  		logarithm(num1);
+				break;
+		  case 'e':
+		  case 'E':
+				printf("Exiting the calculator. Goodbye!\n");
 				break;
 		  default:
 				printf("Invalid decision\n");
